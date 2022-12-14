@@ -36,7 +36,7 @@ sns.pairplot(data=iris_df, hue='labels')
 
 """2."""
 
-# номер моего студ. билета равен 220386, соответственно буду использовать переменные sepal length и sepal width
+# буду использовать переменные sepal length и sepal width
 X = iris_df[['sepal length (cm)','petal width (cm)']].to_numpy()
 x_min, x_max = X[:, 0].min() - 0.1, X[:, 0].max() + 0.5
 y_min, y_max = X[:, 1].min() - 0.1, X[:, 1].max() + 0.5
