@@ -17,45 +17,19 @@ mushroom_df = pd.read_csv('/content/drive/MyDrive/agaricus-lepiota.data', names=
 'stalk-color-above-ring', 'stalk-color-below-ring', 'veil-type', 'veil-color',
 'ring-number', 'ring-type', 'spore-print-color', 'population', 'habitat'],
 header=None)
-#   Номер моего студ. билета равен 220386, соответственно 7 вариант:
-#gill-color: black=k,brown=n,buff=b,chocolate=h,gray=g, green=r,orange=o,pink=p,purple=u,red=e, white=w,yellow=y
-#stalk-shape: enlarging=e,tapering=t
-#stalk-root: bulbous=b,club=c,cup=u,equal=e, rhizomorphs=z,rooted=r,missing=? 
-#stalk-surface-above-ring: fibrous=f,scaly=y,silky=k,smooth=s
-#stalk-surface-below-ring: fibrous=f,scaly=y,silky=k,smooth=s
+
 df = mushroom_df[['gill-color', 'stalk-shape', 'stalk-root', 'stalk-surface-above-ring', 'stalk-surface-below-ring', 'class']]
 #df
 labels = mushroom_df['class'].to_numpy()
 #labels
 
-#tp, te = (labels == 'p'), (labels == 'e')
-#df_p = pd.DataFrame(df.to_numpy()[tp], columns = ['gill-color', 'stalk-shape', 'stalk-root', 'stalk-surface-above-ring', 'stalk-surface-below-ring'])
-#df_e = pd.DataFrame(df.to_numpy()[te], columns = ['gill-color', 'stalk-shape', 'stalk-root', 'stalk-surface-above-ring', 'stalk-surface-below-ring'])
-#unique_p_gc, counts_e_gc = np.unique(df['gill-color'], return_counts=True)
-#unique_e_gc, counts_e_gc = np.unique(df_e['gill-color'], return_counts=True)
-#sns.barplot(x=unique_gc, y=counts_gc, hue=labels);
-#sns.barplot(x=unique_e_gc, y=counts_e_gc, color='red');
-#unique_p_ss, counts_p_ss = np.unique(df_p['stalk-shape'], return_counts=True)
-#unique_e_ss, counts_e_ss = np.unique(df_e['stalk-shape'], return_counts=True)
-#unique_p_sr, counts_p_sr = np.unique(df_p['stalk-root'], return_counts=True)
-#unique_e_sr, counts_e_sr = np.unique(df_e['stalk-root'], return_counts=True)
-#unique_p_ssar, counts_p_ssar = np.unique(df_p['stalk-surface-above-ring'], return_counts=True)
-#unique_e_ssar, counts_e_ssar = np.unique(df_e['stalk-surface-above-ring'], return_counts=True)
-#unique_p_ssbr, counts_p_ssbr = np.unique(df_p['stalk-surface-below-ring'], return_counts=True)
-#unique_e_ssbr, counts_e_ssbr = np.unique(df_e['stalk-surface-below-ring'], return_counts=True)
 sns.catplot(x = 'gill-color', data = df, hue = 'class', kind = 'count')
 sns.catplot(x = 'stalk-shape', data = df, hue = 'class', kind = 'count')
 sns.catplot(x = 'stalk-root', data = df, hue = 'class', kind = 'count')
 sns.catplot(x = 'stalk-surface-above-ring', data = df, hue = 'class', kind = 'count')
 sns.catplot(x = 'stalk-surface-below-ring', data = df, hue = 'class', kind = 'count')
 
-#df_test = df.iloc[0:int(len(labels)*0.2)].drop(columns=['class'])
-#labels_test = df['class'][0:int(len(labels)*0.2)]
-#df_train = df.iloc[int(len(labels)*0.2):len(labels)].drop(columns=['class'])
-#labels_train = df['class'][int(len(labels)*0.2):len(labels)]
-#df_train, df_test, labels_train, labels_test = train_test_split(df, labels, test_size=0.2, random_state=1)
 df_train, df_test, labels_train, labels_test = train_test_split(df.drop(columns=['class']), df['class'], test_size=0.2, random_state=1)
-#df_test = df_test.drop(columns=['class'])
 
 """2."""
 
@@ -100,10 +74,7 @@ accur
 #    df_enc[i]=LabelEncoder().fit_transform(df[i])
 #df_enc = pd.get_dummies(data=df_enc, prefix=['stalk-surface-below-ring'])
 #df_enc_train, df_enc_test, labels_enc_train, labels_enc_test = train_test_split(df_enc.drop(columns=['class']), df_enc['class'], test_size=0.2, random_state=1)
-#df_enc_test = df_enc.iloc[0:int(len(labels)*0.2)].drop(columns=['class'])
-#labels_enc_test = df_enc['class'][0:int(len(labels)*0.2)]
-#df_enc_train = df_enc.iloc[int(len(labels)*0.2):len(labels)].drop(columns=['class'])
-#labels_enc_train = df_enc['class'][int(len(labels)*0.2):len(labels)]
+
 
 #from sklearn.naive_bayes import BernoulliNB
 #model = BernoulliNB()
@@ -116,10 +87,7 @@ df_enc = df.copy()
 for i in df.columns:
     df_enc[i]=LabelEncoder().fit_transform(df[i])
 df_enc_train, df_enc_test, labels_enc_train, labels_enc_test = train_test_split(df_enc.drop(columns=['class']), df_enc['class'], test_size=0.2, random_state=1)
-#df_enc_test = df_enc.iloc[0:int(len(labels)*0.2)].drop(columns=['class'])
-#labels_enc_test = df_enc['class'][0:int(len(labels)*0.2)]
-#df_enc_train = df_enc.iloc[int(len(labels)*0.2):len(labels)].drop(columns=['class'])
-#labels_enc_train = df_enc['class'][int(len(labels)*0.2):len(labels)]
+
 
 from sklearn.naive_bayes import CategoricalNB
 model = CategoricalNB()
